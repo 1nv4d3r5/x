@@ -19,7 +19,7 @@ function xEntryPoint($siteDir, $iniFile, array $using = array()) {
         $auxInit($siteDir, $using);
     }
     
-    xServeRequest(xRequest(), xConfigGet('application', 'prefix'));
+    xServeRequest(xRequestIn(), xConfigGet('application', 'prefix'));
 }
 
 function xServeRequest(array $xReq, $actionPrefix = '') {

@@ -9,10 +9,10 @@ function xErrorX($message, $code = false) {
 
 function xcError($message, $code) {
     //$code = 1 controller 404, = 2 action 404, =3 view 404
-    list($controller, $action) = xRequest();
+    list($controller, $action) = xRequestIn();
     
     ob_start();
-        include_once 'xvError.php';
+    include_once 'xvError.php';
     $content = ob_get_clean();
     
     include_once xFileViewLayout('error');

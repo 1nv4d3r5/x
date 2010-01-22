@@ -19,10 +19,10 @@
         
         <div id="menu">
         	<ul>	
-            	<li class="selected"><a href="<?php echo xRequest(array('Default', '')); ?>">Home</a> /</li>
-                <li><a href="<?php echo xRequest(array('Users', 'List')); ?>">Users</a> /</li>
-                <li><a href="<?php echo xRequest(array('Blog', 'Index')); ?>">Blog</a> /</li>
-                <li><a href="<?php echo xRequest(array('Users', 'Logout')); ?>">Logout</a></li>
+            	<li class="selected"><a href="<?php echo xRequestOut(array('Default', '')); ?>">Home</a> /</li>
+                <li><a href="<?php echo xRequestOut(array('Users', 'List')); ?>">Users</a> /</li>
+                <li><a href="<?php echo xRequestOut(array('Blog', 'Index')); ?>">Blog</a> /</li>
+                <li><a href="<?php echo xRequestOut(array('Users', 'Logout')); ?>">Logout</a></li>
         	</ul>
         </div>
        <div id="container">

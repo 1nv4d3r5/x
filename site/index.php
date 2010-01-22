@@ -37,5 +37,5 @@ function myInitApp($siteDir, array $using) {
 }
 
 $using = array('db', 'acl', 'session', 'user');
-xEntryPoint(__DIR__, 'full.ini', $using);
+xEntryPoint(dirname(__FILE__), 'full.ini', $using);
 ?>

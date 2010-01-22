@@ -1,24 +1,30 @@
 <?php
-function xRequest(array $xReq = null) {
-    $rf = xConfigGet('application', 'requestFunction');
+
+function xRequestIn() {
+    $rf = xConfigGet('application', 'requestFunctions') . 'In';
+    return $rf();
+}
+
+function xRequestOut() {
+    $rf = xConfigGet('application', 'requestFunctions') . 'Out';
     return $rf($xReq);
 }
 
-function xRequestDefaultRoute(array $xReq = null) {
-    if($xReq) {
-        array_unshift($xReq, xConfigGet('application', 'webRoot'));
-        return vsprintf('%s?controller=%s&action=%s',$xReq);
-    } else {
-        $c = xHttpGet('controller');
-        return array($c ? ucfirst($c) : 'Default', xHttpGet('action'));
-    }
+function xRequestDefaultIn() {
+    $c = xHttpGet('controller');
+    return array($c ? ucfirst($c) : 'Default', xHttpGet('action'));    
+}
+
+function xRequestDefaultOut(array $xReq = null) {
+    array_unshift($xReq, xConfigGet('application', 'webRoot'));
+    return vsprintf('%s?controller=%s&action=%s',$xReq);   
 }
 
 function xRedirect(array $to, array $from = array(), $http = true) {
     xHttpRefererSet($from);
     
     if($http) {
-        $url = xRequest($to);
+        $url = xRequestOut($to);
         header("Location:  $url");
         exit();
     } else {
