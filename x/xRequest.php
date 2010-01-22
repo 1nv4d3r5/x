@@ -5,7 +5,7 @@ function xRequestIn() {
     return $rf();
 }
 
-function xRequestOut() {
+function xRequestOut(array $xReq) {
     $rf = xConfigGet('application', 'requestFunctions') . 'Out';
     return $rf($xReq);
 }
@@ -15,7 +15,7 @@ function xRequestDefaultIn() {
     return array($c ? ucfirst($c) : 'Default', xHttpGet('action'));    
 }
 
-function xRequestDefaultOut(array $xReq = null) {
+function xRequestDefaultOut(array $xReq) {
     array_unshift($xReq, xConfigGet('application', 'webRoot'));
     return vsprintf('%s?controller=%s&action=%s',$xReq);   
 }

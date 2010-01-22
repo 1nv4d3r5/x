@@ -25,7 +25,7 @@ function xEntryPoint($siteDir, $iniFile, array $using = array()) {
 function xServeRequest(array $xReq, $actionPrefix = '') {
     $cFile = xFileController($xReq);
     $mFile = xFileModel($xReq);
-    
+       
     if(file_exists($cFile)) {
         if(file_exists($mFile)) {
             include_once $mFile;
@@ -35,12 +35,11 @@ function xServeRequest(array $xReq, $actionPrefix = '') {
         xErrorX("Controller File ($cFile) Not Found", 1);
     }
         
-    $function = "{$actionPrefix}c$xReq[0]$xReq[1]";
+    $action = "{$actionPrefix}c$xReq[0]$xReq[1]";
     
-    if(function_exists($function)) {
-        xViewDisplay($xReq, (array) $function() +  xViewDefaults($function));
+    if(function_exists($action)) {
+        xViewDisplay($xReq, (array) $action() +  xViewDefaults());
     } else {
         xErrorX("Action ($function) Not Found!", 2);
     }
 }
-?>

@@ -29,4 +29,3 @@ function xHttpRefererSet(array $xReq) {
         xSessionSet(xSessionNs, 'lastRequest', $xReq);
     }
 }
-?>

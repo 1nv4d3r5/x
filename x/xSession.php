@@ -23,6 +23,10 @@ function xSessionGet($ns, $key = false) {
 }
 
 function xSessionClear($ns = false) {
-    if($ns) session_destroy(); else unset($_SESSION[$ns]);
+    if($ns) {
+        session_destroy(); 
+    } else { 
+        unset($_SESSION[$ns]);
+    }
 }
 ?>

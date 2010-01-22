@@ -1,6 +1,7 @@
 <?php
 function xUserLogin($username, $password, $userDetails) {
     if($userDetails['password'] == $password) {
+        unset($userDetails['password']);
         xSessionSetNs('user', $userDetails);
         return true;
     } else {

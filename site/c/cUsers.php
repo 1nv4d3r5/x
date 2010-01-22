@@ -1,8 +1,12 @@
 <?php
 function cUsers() {
-    $username = xSessionGet('user', 'username');
-    $info = xDbFetch(mUsersGet($username));
-    return array('vars' => array('user' => $info));
+    return array('vars' => array('user' => xSessionGet('user')));
+}
+
+function cUsersAdmin() {
+    $vars = array();
+    $vars['message'] = 'Hi';
+    return array('vars' => $vars);
 }
 
 function cUsersAjaxGet() {

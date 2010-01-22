@@ -4,19 +4,23 @@ function xViewDisplay(array $xReq, $viewOpts) {
         $viewOpts['viewAs']($xReq, $viewOpts);
     }
 }
-function xViewDefaults($token) {
-    return array('viewAs' => 'xViewAsTemplate', 'token' => $token);
+function xViewDefaults() {
+    return array('viewAs' => 'xViewAsTemplate');
 }
 
 function xViewAsTemplate(array $xReq, $viewOpts) {
-    $vFile = xFileView($xReq);
-    $lFile = xFileViewLayout();
-    
-    $viewOpts['vars']['xReq'] = $xReq;    
-    $content = xViewTemplateSection($vFile, '', $viewOpts['vars']);
+    $lvFile = xFileLayoutView();
+        
+    $content = xViewTemplateSection(xFileView($xReq), '', $viewOpts['vars']);
 
-    if($lFile) {
-        $content = xViewTemplateSection($lFile, $content, $viewOpts['vars']);
+    if($lvFile) {
+        $clFile = xFileLayoutController();
+        if($clFile && file_exists($clFile)) {
+            include_once $clFile;
+            $f = 'c' . xConfigGet('view', 'masterLayout');
+            $f($xReq, $viewOpts['vars']);
+        }
+        $content = xViewTemplateSection($lvFile, $content, $viewOpts['vars']);
     }
     
     echo $content;
