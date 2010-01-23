@@ -12,7 +12,11 @@ function xConfig($new = false, $get = null) {
         }
     } elseif($get) {
         list($namespace, $key) = $get;
-        return $key == '*' ? $config[$namespace] : $config[$namespace][$key];
+        if($key == '*') {
+            return isset($config[$namespace]) ? $config[$namespace] : null;
+        } else {
+             return isset($config[$namespace][$key]) ? $config[$namespace][$key] : null;
+        }
     } else {
         return $config;
     }

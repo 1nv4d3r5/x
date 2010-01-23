@@ -40,7 +40,7 @@ function xDb($newDb = false) {
         return $db;
     }
 }
-function xDbConnect() {
+function xDbInit() {
     $driver = xConfigGet('db', 'driver');
     $driver = "xDb{$driver}Driver";
     xDb($driver());

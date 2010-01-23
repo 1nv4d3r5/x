@@ -1,6 +1,10 @@
 <?php
-function xSessionStart() {
+function xSessionInit() {
     define('xSessionNs', '__x__');
+    return xSessionStart();
+}
+
+function xSessionStart() {
     return session_start();
 }
 

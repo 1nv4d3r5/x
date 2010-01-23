@@ -6,10 +6,11 @@ require '../x/x.php';
 
 function myInitApp($siteDir, array $using) {
     //init xSession
-    xSessionStart();
-
+    xSessionInit();
+    //init User
+    xUserInit();
     //ini xAcl
-    xAcl(array('*', array())); //blank acl
+    xAclInit();
     xAclAddRole('admin', 0);
     xAclAddRole('user',  1);
     xAclAddRole('guest', 2);
@@ -29,7 +30,7 @@ function myInitApp($siteDir, array $using) {
                    'email'    => 'user@localhost',
                    'role'     => 'user');
     //init xDb               
-    xDbConnect();
+    xDbInit();
     xDbSqliteCreate('users', $users);
     xDbWrite('users', $admin);
     xDbWrite('users', $user);

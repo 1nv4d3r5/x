@@ -15,7 +15,11 @@ function xcError($message, $code) {
     include_once 'xvError.php';
     $content = ob_get_clean();
     
-    include_once xFileViewLayout('error');
+    if($eL = xFileLayoutView('error')) {
+        include_once $eL;
+    } else {
+        echo $content;
+    }
     
     exit();
 }

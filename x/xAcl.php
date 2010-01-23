@@ -15,7 +15,10 @@ function xAcl($new = null, $get = null) {
         return $acl;
     }
 }
-
+function xAclInit() {
+    //blank acl
+    xAcl(array('*', array())); 
+}
 function xAclAddRole($name, $level) {
     xAcl(array('role', array('name' => $name, 'level' => $level)));
 }
