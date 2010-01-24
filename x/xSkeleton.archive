@@ -30,7 +30,18 @@ define('xSkeletonTpl_cMaster', xSkeletonTpl_phpOpen .
     return array('vars' => array('appName' => xConfigGet('application', 'name')));
 }");
 
-define('xSkeletonTpl_master', xSkeletonTpl_phpOpen . 'echo $content; ?>');
+define('xSkeletonTpl_master', '
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $vars[\'appName\']; ?> . '::' . implode($vars[\'xReq\']; ?></title>
+</head>
+<body>
+<?php echo $content; ?>
+</body>
+</html>');
+
 define('xSkeletonTpl_vDef', '
 <div style="margin-left:3em;">
     <h1>Welcome to <?php echo $vars[\'appName\']; ?></h1>

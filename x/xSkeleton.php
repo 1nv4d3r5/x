@@ -60,7 +60,11 @@ function xSkeletonPath($inApp) {
 
 function xSkeletonMkDir($dir, $inApp = true){
     $path = xSkeletonPath($inApp, $dir);
-    xSkeletonOutOp(@mkdir($path), 'MkDir', $path);
+    if($fe = file_exists($path)) {
+        xSkeletonOutOp($fe, 'MkDir', $path);
+    } else {
+        xSkeletonOutOp(@mkdir($path), 'MkDir', $path);
+    }
 }
 
 function xSkeletonWrite($data, $to, $toFile = false) {
