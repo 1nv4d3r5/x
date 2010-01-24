@@ -5,6 +5,7 @@
 <title><?php echo $vars['appName']; ?> . '::' . <?php implode($vars['xReq']); ?></title>
 </head>
 <body>
+
 <?php echo $content; ?>
 </body>
 </html>
