@@ -1,6 +1,6 @@
 <?php
-function cMaster(array $xReq, &$vars) {
-    $vars['xReq'] = $xReq;
+function cMaster(&$vars, &$options) {
+    $vars['xReq'] = $options['xReq'];
     $vars['log']  = xSessionHas('user') ? 'Logout' : 'Login';
 }
 ?>

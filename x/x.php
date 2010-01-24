@@ -38,7 +38,7 @@ function xServeRequest(array $xReq, $actionPrefix = '') {
     $action = "{$actionPrefix}c$xReq[0]$xReq[1]";
     
     if(function_exists($action)) {
-        xViewDisplay($xReq, (array) $action() +  xViewDefaults());
+        xViewDisplay($xReq, $action);
     } else {
         xErrorX("Action ($action) Not Found!", 2);
     }

@@ -1,5 +1,5 @@
 <?php
-function cDefault() {
-    return array('vars' => array('msg' => 'Hello World'));
+function cDefault(&$vars, &$options) {
+    $vars['msg'] = 'Hello World';
 }
 ?>

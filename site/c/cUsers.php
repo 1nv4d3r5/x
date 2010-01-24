@@ -1,29 +1,28 @@
 <?php
-function cUsers() {
-    return array('vars' => array('user' => xSessionGet('user')));
+function cUsers(&$vars, &$options) {
+    $vars['user'] = xSessionGet('user');
 }
 
-function cUsersAdmin() {
-    $vars = array();
+function cUsersAdmin(&$vars, &$options) {
     $vars['message'] = 'Hi';
-    return array('vars' => $vars);
 }
 
-function cUsersAjaxGet() {
+function cUsersAjaxGet(&$vars, &$options) {
+    $options['viewAs'] = 'xViewAsJson';
+    
     $username = xHttpGet('username');
     $password = xHttpGet('password');
-    $error    = array('viewAs' => 'xViewAsJson', 'vars' => array('error' => 'user not found'));
+    $error    = array('error' => 'user not found');
     
     if($username && $password && $user = xDbFetch(mUsersGet($username))) {
-        return $user['password'] == md5($password) ? array('viewAs' => 'xViewAsJson', 'vars' => $user)
-                                                   : $error;
+        $vars = $user['password'] == md5($password) ? $user : $error;
     } else {
-        return $error;
+        $vars = $error;
     }
     
 }
 
-function cUsersLogin() {
+function cUsersLogin(&$vars, &$options) {
     if(xHttpIsPost()) {
         $user = xHttpPost('User');
         $fromDb = xDbFetch(mUsersGet($user['username']));
@@ -34,18 +33,18 @@ function cUsersLogin() {
             xErrorX('Failed to log you in!');
         }
     } else {
-        return array('vars' => array('from' => xHttpReferer()));
+        $vars['from'] = xHttpReferer();
     }
 }
 
-function cUsersLogout() {
+function cUsersLogout(&$vars, &$options) {
     xUserLogout();
 }
 
-function cUsersList() {
+function cUsersList(&$vars, &$options) {
     if(!xUserAllowed('site')) {
         return xRedirect(array('Users', 'Login'), array('Users', 'List'));
     }
-    return array('vars' => array('users' => xDbFetch(mUsersGet('*'), 'assoc', true)));
+    $vars['users'] = xDbFetch(mUsersGet('*'), 'assoc', true);
 }
 ?>

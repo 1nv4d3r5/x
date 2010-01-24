@@ -21,13 +21,13 @@ require 'init.php';
 xEntryPoint(dirname(__FILE__), '%s.ini', \$using);", xSkeletonAppName));
 
 define('xSkeletonTpl_cMaster', xSkeletonTpl_phpOpen .
-'function cMaster(array $xReq, &$vars) {
-    $vars[\'xReq\'] = $xReq;
+'function cMaster(&$vars, &$options) {
+    $vars['xReq'] = $options['xReq'];
  }');
 
  define('xSkeletonTpl_cDef', xSkeletonTpl_phpOpen .
-"function cDefault() {
-    return array('vars' => array('appName' => xConfigGet('application', 'name')));
+"function cDefault(&$vars, &$options) {
+    $vars['appName'] = xConfigGet('application', 'name');
 }");
 
 define('xSkeletonTpl_master', '

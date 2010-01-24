@@ -1,26 +1,28 @@
 <?php
-function xViewDisplay(array $xReq, $viewOpts) {
-    if($viewOpts['viewAs'] != 'none') {
-        $viewOpts['viewAs']($xReq, $viewOpts);
+function xViewDisplay(array $xReq, $action) {
+    $vars = array(); $options = xViewDefaults($xReq);
+    $action($vars, $options);
+    if($options['viewAs'] != 'none') {
+        $options['viewAs']($vars, $options);
     }
 }
-function xViewDefaults() {
-    return array('viewAs' => 'xViewAsTemplate');
+
+function xViewDefaults(array $xReq) {
+    return array('viewAs' => 'xViewAsTemplate', 'xReq' => $xReq);
 }
 
-function xViewAsTemplate(array $xReq, $viewOpts) {
+function xViewAsTemplate($vars, $options) {
     $lvFile = xFileLayoutView();
-        
-    $content = xViewTemplateSection(xFileView($xReq), '', $viewOpts['vars']);
+    $content = xViewTemplateSection(xFileView($options['xReq']), '', $vars);
 
     if($lvFile) {
         $clFile = xFileLayoutController();
         if($clFile && file_exists($clFile)) {
             include_once $clFile;
             $f = 'c' . xConfigGet('view', 'masterLayout');
-            $f($xReq, $viewOpts['vars']);
+            $f($vars, $options);
         }
-        $content = xViewTemplateSection($lvFile, $content, $viewOpts['vars']);
+        $content = xViewTemplateSection($lvFile, $content, $vars);
     }
     
     echo $content;
@@ -36,16 +38,16 @@ function xViewTemplateSection($file, $content, &$vars) {
     }
 }
 
-function xViewAsRaw(array $xReq, $viewOpts) {
-    echo '<pre>', print_r(func_get_args(), true), '</pre>';
+function xViewAsRaw($vars, $options) {
+    echo print_r(func_get_args(), true);
 }
 
-function xViewAsJson(array $xReq, $viewOpts) {
-    echo json_encode($viewOpts['vars']);
+function xViewAsJson($vars, $options) {
+    echo json_encode($vars);
 }
 
-function xViewAsSerialized(array $xReq, $viewOpts) {
-    echo serialize($viewOpts['vars']);
+function xViewAsSerialized($vars, $options) {
+    echo serialize($vars);
 }
 
 ?>
