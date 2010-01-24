@@ -1,0 +1,15 @@
+[application]
+name = %s
+webRoot = %s
+initFunction = %sInit
+requestFunctions = xRequestDefault
+errorFunction = xcError
+
+[view]
+masterLayout = master
+errorLayout = error
+
+[db]
+
+[%s]
+assetRoot = %s

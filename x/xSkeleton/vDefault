@@ -1,0 +1,12 @@
+<div style="margin-left:3em;">
+    <h1>Welcome to <?php echo $vars['appName']; ?></h1>
+    <p>What do you do now?</p>
+    <h2>Getting Started</h2>
+    <p>Links</p>
+    <h3>Step One</h3>
+    <p>...</p>
+    <h3>Step Two</h3>
+    <p>...</p>
+    <h3>Step Three</h3>
+    <p>...</p>
+</div>

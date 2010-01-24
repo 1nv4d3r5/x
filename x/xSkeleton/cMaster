@@ -1,0 +1,5 @@
+<?php
+function cMaster(&$vars, &$options) {
+    $vars['xReq'] = $options['xReq'];
+ }
+?>

@@ -1,0 +1,10 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
+require '../x/x.php';
+require 'init.php';
+
+$using = array('acl', 'session', 'user');
+xEntryPoint(dirname(__FILE__), '%s.ini', $using);
+?>

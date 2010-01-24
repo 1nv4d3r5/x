@@ -29,21 +29,21 @@ function xSkeleton($webRoot, $root = 'Here', $appName = 'basic', $type = 'basic'
 }
 
 function xSkeletonBasic() {
-    require 'xSkeleton.archive';
+    xSkeletonInitTpl();   
 	$vDefDir = 'v'. DIRECTORY_SEPARATOR . 'default';
     xSkeletonMkDir(xSkeletonAppName, false);
-        xSkeletonWrite(xSkeletonTpl_ini,  xSkeletonAppName . '.ini');
-        xSkeletonWrite(xSkeletonTpl_index,  'index.php');
-        xSkeletonWrite(xSkeletonTpl_init,  'init.php');
+        xSkeletonWrite(xSkeletonTplGet('ini'),  xSkeletonAppName . '.ini');
+        xSkeletonWrite(xSkeletonTplGet('index'),  'index.php');
+        xSkeletonWrite(xSkeletonTplGet('init'),  'init.php');
     xSkeletonMkDir('m');
     xSkeletonMkDir('v');
-        xSkeletonWrite(xSkeletonTpl_master,  'v', 'master.php');
-        xSkeletonWrite(xSkeletonTpl_master,  'v', 'error.php');
+        xSkeletonWrite(xSkeletonTplGet('master'),  'v', 'master.php');
+        xSkeletonWrite(xSkeletonTplGet('master'),  'v', 'error.php');
         xSkeletonMkDir($vDefDir);
-            xSkeletonWrite(xSkeletonTpl_vDef,  $vDefDir, 'v.php');
+            xSkeletonWrite(xSkeletonTplGet('vDefault'),  $vDefDir, 'v.php');
     xSkeletonMkDir('c');
-        xSkeletonWrite(xSkeletonTpl_cDef, 'c', 'cDefault.php');
-        xSkeletonWrite(xSkeletonTpl_cMaster, 'c', 'cMaster.php');
+        xSkeletonWrite(xSkeletonTplGet('cDefault'), 'c', 'cDefault.php');
+        xSkeletonWrite(xSkeletonTplGet('cMaster'), 'c', 'cMaster.php');
     xSkeletonMkDir('assets');
 }
 
@@ -72,4 +72,23 @@ function xSkeletonWrite($data, $to, $toFile = false) {
     xSkeletonOutOp(file_put_contents($path, $data), 'Write', $path);
 }
 
+function xSkeletonInitTpl() {
+    xSkeletonTplNew('ini', array(xSkeletonAppName, xSkeletonWebRoot, xSkeletonAppName, 
+                                 xSkeletonAppName, xSkeletonPath(true, 'assets')));
+    xSkeletonTplNew('init', array(xSkeletonAppName));
+    xSkeletonTplNew('index', array(xSkeletonAppName));
+    xSkeletonTplNew('cMaster');
+    xSkeletonTplNew('master');
+    xSkeletonTplNew('cDefault');
+    xSkeletonTplNew('vDefault');
+}
+
+function xSkeletonTplGet($name) {
+    return constant('xSkeletonTpl_' . $name);
+}
+
+function xSkeletonTplNew($name, $vars = false) {
+    $data = file_get_contents(xSkeletonPath(false, 'x', 'xSkeleton', $name));
+    define('xSkeletonTpl_' . $name, $vars ? vsprintf($data, $vars) : $data);
+}
 ?>

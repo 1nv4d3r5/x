@@ -1,0 +1,8 @@
+<?php
+function %sInit($siteDir, array $using) {
+    foreach($using as $k => $lib) {
+        $initFnc = "x{$lib}Init";
+        $initFnc();
+    }
+}
+?>
